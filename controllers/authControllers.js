@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const { validationResult } = require('express-validator');
 const { connection } =  require('../config/database');
 
@@ -55,6 +56,24 @@ exports.login = (req,res) => {
     });
 }
 
-exports.logout = (req,res) => {
-    res.json({ message: 'Logout Successful'});
+exports.logout = (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error logging out' });
+        }
+        res.json({ message: 'Logout Successful' });
+    });
+};
+
+
+exports.googleAuth = (req, res) => {
+    passport.authenticate('google', { scope: ['profile', 'email'] })(req, res);
+};
+
+exports.googleAuthCallBack = (req,res) => {
+    passport.authenticate('google', {failureRedirect:'/'})(req,res, () => {
+        const token = jwt.sign({ id: req.user.id, username:  req.user.username}, SECRET_KEY, {expiresIn: '1h'});
+        res.json({ message: 'Login successful with google', token});
+    })
 }
+

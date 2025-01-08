@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const { body } = require('express-validator');
 const authController = require('../controllers/authControllers');
 
@@ -15,6 +16,11 @@ router.post(
 );
 
 router.post('/login', authController.login);
-router.post('/logout', authController.logout);
+router.get('/logout', authController.logout);
+
+router.get('/google', authController.googleAuth);
+router.get('/google/callback', authController.googleAuthCallBack);
+
+
 
 module.exports = router;
