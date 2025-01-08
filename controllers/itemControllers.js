@@ -36,9 +36,9 @@ exports.createItems = (req, res) => {
         if (err) {
             res.status(500).json({ error: err.message });
         } else {
-            const newItemId = result.insertId; // Get the ID of the newly created record
+            const newItemId = result.insertId; 
 
-            // Fetch the newly added record
+            
             const querySelect = "SELECT * FROM items WHERE id = ?";
             connection.query(querySelect, [newItemId], (err, rows) => {
                 if (err) {

@@ -5,7 +5,7 @@ const cors = require('cors');
 const session = require('express-session');
 const itemRoutes = require('./routes/itemRoutes');
 const authRoutes = require('./routes/authRoutes');
-require('./controllers/googleControllers');  // This imports the Google OAuth strategy
+require('./controllers/googleControllers'); 
 
 const app = express();
 const port = 3000;
@@ -28,9 +28,9 @@ app.use('/api/items', itemRoutes);
 app.use('/api/auth', authRoutes);
 
 app.use(cors({
-    origin: 'http://localhost:3001', // Replace with the allowed origin(s)
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-    credentials: true // Allow cookies or authentication headers
+    origin: 'http://localhost:3001', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    credentials: true 
 }));
 
 
